@@ -3,5 +3,7 @@ $(function(){
 		$(this).addClass("in_p_hover");
 	}).mouseleave(function(){
 		$(this).removeClass("in_p_hover");
+	}).click(function(){
+		window.location.href="list.html";
 	});
 });
