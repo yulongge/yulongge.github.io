@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>memoryManagement | Ge Yulong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="诸如C语言这般低级语言一般都有低级的内存管理接口，比如malloc() 和 free()。而另外一些高级语言，比如Javascript，其变量(对象，字符串等等)创建时分配内存，然后在它们不再使用时自动释放。后者称为垃圾回收 .”自动”是容易让人混淆，迷惑，并给Javascript开发者一个印象，他们可以不用关心内存管理，然而这是错误的。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="memoryManagement">
+<meta property="og:url" content="http://yulongge.github.io/2016/12/20/memoryManagement/index.html">
+<meta property="og:site_name" content="Ge Yulong">
+<meta property="og:description" content="诸如C语言这般低级语言一般都有低级的内存管理接口，比如malloc() 和 free()。而另外一些高级语言，比如Javascript，其变量(对象，字符串等等)创建时分配内存，然后在它们不再使用时自动释放。后者称为垃圾回收 .”自动”是容易让人混淆，迷惑，并给Javascript开发者一个印象，他们可以不用关心内存管理，然而这是错误的。">
+<meta property="og:updated_time" content="2017-06-13T15:51:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="memoryManagement">
+<meta name="twitter:description" content="诸如C语言这般低级语言一般都有低级的内存管理接口，比如malloc() 和 free()。而另外一些高级语言，比如Javascript，其变量(对象，字符串等等)创建时分配内存，然后在它们不再使用时自动释放。后者称为垃圾回收 .”自动”是容易让人混淆，迷惑，并给Javascript开发者一个印象，他们可以不用关心内存管理，然而这是错误的。">
+  
+    <link rel="alternate" href="/atom.xml" title="Ge Yulong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ge Yulong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">web</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yulongge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-memoryManagement" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/20/memoryManagement/" class="article-date">
+  <time datetime="2016-12-20T15:38:52.000Z" itemprop="datePublished">2016-12-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      memoryManagement
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>诸如C语言这般低级语言一般都有低级的内存管理接口，比如malloc() 和 free()。而另外一些高级语言，比如Javascript，其变量(对象，字符串等等)创建时分配内存，然后在它们不再使用时自动释放。后者称为<strong>垃圾回收</strong> .”自动”是容易让人混淆，迷惑，并给Javascript开发者一个印象，他们可以不用关心内存管理，然而这是错误的。<br><a id="more"></a></p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>不管什么程序语言，内存生命周期基本是一致的：</p>
+<ol>
+<li>分配你所需要的内存</li>
+<li>使用分配到的内存(读，写)</li>
+<li>不需要时将其释放\归还</li>
+</ol>
+<p>在所有语言中1，2都很清晰，3在低级语言中很清晰，但是在像JavaScript等高级语言总，这一步是隐藏的。</p>
+<h3 id="内存分配"><a href="#内存分配" class="headerlink" title="内存分配"></a>内存分配</h3><h4 id="值的初始化时分配空间"><a href="#值的初始化时分配空间" class="headerlink" title="值的初始化时分配空间"></a>值的初始化时分配空间</h4><p>为了不让程序员费心分配内存，Javascript在定义变量时就完成了内存分配。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n = <span class="number">123</span>; <span class="comment">//给数值变量分配内存</span></div><div class="line"><span class="keyword">var</span> s = <span class="string">"azerty"</span>; <span class="comment">//给字符串分配内存</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> o = &#123;</div><div class="line">  <span class="attr">a</span>: <span class="number">1</span>,</div><div class="line">  <span class="attr">b</span>: <span class="literal">null</span></div><div class="line">&#125;; <span class="comment">//给对象及其包含的值分配内存</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="literal">null</span>, <span class="string">"abra"</span>]; <span class="comment">//给数组及其包含的值分配内存(就像对象一样)</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">a</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> a + <span class="number">2</span>;</div><div class="line">&#125; <span class="comment">// 给函数(可调用的对象)分配内存</span></div><div class="line"></div><div class="line"><span class="comment">//函数表达式也能分配一个对象</span></div><div class="line">someElement.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    someElement.style.backgroundColor = <span class="string">"blue"</span>;</div><div class="line">&#125;, <span class="literal">false</span>);</div></pre></td></tr></table></figure>
+<h4 id="函数调用内存分配"><a href="#函数调用内存分配" class="headerlink" title="函数调用内存分配"></a>函数调用内存分配</h4><p>有些函数调用结果是分配对象内存<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(); <span class="comment">//分配一个Date对象</span></div><div class="line"><span class="keyword">var</span> e = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>); <span class="comment">//分配一个DOM元素</span></div></pre></td></tr></table></figure></p>
+<p>有些方法分配新变量或者新对象：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> s = <span class="string">"azerty"</span>;</div><div class="line"><span class="keyword">var</span> s2 = s.substr(<span class="number">0</span>, <span class="number">3</span>); <span class="comment">//s2是一个新的字符串，因为字符串是不变量，JavaScript决定不分配内存，只是存储了[0-3]的范围。</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> a = [<span class="string">"ouais ouais"</span>, <span class="string">"nan nan"</span>];</div><div class="line"><span class="keyword">var</span> a2 = [<span class="string">"generation"</span>, <span class="string">"nan nan"</span>];</div><div class="line"><span class="keyword">var</span> a3 = a.concat(a2); <span class="comment">//新数组有四个元素，是a连接a2的结果</span></div></pre></td></tr></table></figure></p>
+<p>使用值的过程实际上是对分配内存进行读取与写入的操作。读取与写入可能是写入一个变量或者一个对象的属性值，甚至传递函数的参数。<br><strong><em>当内存不再需要使用时释放</em></strong> 大多数内存管理的问题在这个阶段。在这里最艰难的任务是找到”所分配的内存确实已经不再需要了”。它往往要求开发人员来确定在程序中哪一块内存不再需要并且释放它。</p>
+<blockquote>
+<p>高级语言解释器嵌入了”垃圾回收器”，它的主要工作是跟踪内存的分配和使用，以便当分配的内存不再使用时，自动释放它。这只能是一个近似的过程，因为要知道是否仍然需要某块内存是无法判定的(无法通过某种算法解决)</p>
+</blockquote>
+<p>如上文所述自动寻找是否一些内存”不在需要”的问题是无法判定的。因此，垃圾回收实现只能有限制的解决一般问题。现在开始了解他的算法和局限性。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>垃圾回收算法主要赖于 <strong>引用(reference)</strong> 的概念。在内存管理环境中，一个对象如果有访问另一个对象的权限(隐式或者显式)，叫做一个对象引用另一个对象。例如，一个javascript读写具有对它原型的引用(隐式引用)和对它属性的引用(显式引用)。</p>
+<p><strong>引用计数垃圾收集</strong> 这是最简单的垃圾收集算法。此算法把 <strong>对象是否不再需要</strong> 简化定义为 <strong>对象有没有其他对象引用到它</strong> 。如果没有引用指向该对象(零引用)，对象将被垃圾回收机制回收。</p>
+<blockquote>
+<p>该算法有个限制，无法处理循环引用。两个对象被创建，并互相引用，形成了一个循环，他们被调用之后不会离开函数作用域，所以他们已经没有用了，可以被收回了，然而引用计算法考虑到他们互相都有至少一次引用，所以它们不会被收回。</p>
+</blockquote>
+<h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><p>鉴于引用算法的限制性，标记算法把 <strong>对象是否不再需要</strong> 简化定义为 <strong>对象是否可以获得</strong></p>
+<p>这个算法假定社会一个叫做 <strong>根(root)</strong> 的对象（在javascript里，根是全局对象).定期的，垃圾回收器将从根开始，找所有从根开始引用的对象，然后找这些对象引用的对象，从根开始，垃圾会期将找到所有可以获得的对象和所有不能获得的对象。</p>
+<p>详情查看我的上篇文章 <strong>JavaScript GC</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yulongge.github.io/2016/12/20/memoryManagement/" data-id="cj4p6jhl7001dcxs6vq6iq1m5" class="article-share-link">Partager</a>
+      
+        <a href="http://yulongge.github.io/2016/12/20/memoryManagement/#disqus_thread" class="article-comment-link">Commentaires</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/21/Scope-Context/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Scope &amp; Context
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/20/javascriptGC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">JavaScript GC</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Event/">Event</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JSON/">JSON</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/JSONP/">JSONP</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/">ES6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/Promise/">Promise</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/http/https/">https</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/">mvvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/">mvc</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/mvp/">mvp</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/Promise/">Promise</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/css/">css</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context/">Context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event/">Event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JvaScript/">JvaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RegExp/">RegExp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scope/">Scope</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storage/">Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event/">event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iTerm2/">iTerm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvvm/">mvvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruanyifeng/">ruanyifeng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/">this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JvaScript/" style="font-size: 10px;">JvaScript</a> <a href="/tags/Promise/" style="font-size: 12.5px;">Promise</a> <a href="/tags/RegExp/" style="font-size: 12.5px;">RegExp</a> <a href="/tags/Scope/" style="font-size: 10px;">Scope</a> <a href="/tags/Storage/" style="font-size: 10px;">Storage</a> <a href="/tags/URI/" style="font-size: 12.5px;">URI</a> <a href="/tags/book/" style="font-size: 17.5px;">book</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/event/" style="font-size: 10px;">event</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/iTerm2/" style="font-size: 10px;">iTerm2</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mvvm/" style="font-size: 10px;">mvvm</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/ruanyifeng/" style="font-size: 17.5px;">ruanyifeng</a> <a href="/tags/this/" style="font-size: 12.5px;">this</a> <a href="/tags/vim/" style="font-size: 12.5px;">vim</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/04/studyInsight/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/13/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/this/">this</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/23/npm/">从头开始写一个npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/StringAPI/">String API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Ge Yulong<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'yulongge-github-io';
+  
+  var disqus_url = 'http://yulongge.github.io/2016/12/20/memoryManagement/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

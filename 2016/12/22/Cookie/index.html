@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Cookie | Ge Yulong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在写这篇文章之前，在用了这么久cookie之后，还想说一句，cookie 他妈的到底是什么鬼。">
+<meta name="keywords" content="JvaScript,Cookie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cookie">
+<meta property="og:url" content="http://yulongge.github.io/2016/12/22/Cookie/index.html">
+<meta property="og:site_name" content="Ge Yulong">
+<meta property="og:description" content="在写这篇文章之前，在用了这么久cookie之后，还想说一句，cookie 他妈的到底是什么鬼。">
+<meta property="og:updated_time" content="2017-06-13T15:51:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cookie">
+<meta name="twitter:description" content="在写这篇文章之前，在用了这么久cookie之后，还想说一句，cookie 他妈的到底是什么鬼。">
+  
+    <link rel="alternate" href="/atom.xml" title="Ge Yulong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ge Yulong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">web</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yulongge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Cookie" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/22/Cookie/" class="article-date">
+  <time datetime="2016-12-22T09:37:29.000Z" itemprop="datePublished">2016-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cookie
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在写这篇文章之前，在用了这么久cookie之后，还想说一句，cookie 他妈的到底是什么鬼。<br><a id="more"></a><br>cookie是存储于访问者计算机中的变量。每当同一台计算机通过浏览器请求某个页面时，就会发送这个cookie。你可以使用JavaScript来创建和取回cookie的值。<br>cookie是访问过的网站创建文件，用于存储浏览信息，例如个人资料。</p>
+<p>从JavaScript的角度看，cookie就是一些字符串信息。这些信息存在客户端的计算机中，用于客户端计算机与服务器之间传递信息。<br>在JavaScript中可以通过document.cookie来读取或者设置这些信息。由于cookie多用在客户端和服务端之间进行通信，所以除了JavaScript以外，服务器的语言(如PHP)也可以存取cookie。</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<li>cookie是有大小限制的。每个cookie所存放的数据不能超过4k，如果cookie字符串长度超过4k，则该属性将返回空字符串。</li>
+<li>由于cookie最终都是以文件形式存放在客户端计算机中，所以查看和修改cookie都是很方便的，这就是为什么常说cookie不能存放重要信息的原因。</li>
+<li>每个cookie是存在有效期的。在默认情况下，一个cookie的生命周期就是在关闭浏览器的时候结束。如果想要cookie能在浏览器关掉之后还可以使用，就必须腰围cookie设置有效期，也就是cookie的失效日期。</li>
+<li>alert(typeof document.cookie) 结果是string,而不是array。</li>
+<li>cookie有域和路径这个概念。域就是domain的概念，因为浏览器是个注意安全的环境，所以不同的域之间是不能互相访问cookie的(当然可以通过特殊设置达到cookie跨域访问)。路径就是routing的概念，一个网页所创建的cookie只能被这个网页在同一目录或者子目录下的所有页面访问，而不能被其他目录下的网页访问。</li>
+<li>创建cookie的方式和定义变量的方式有些相似，都需要使用cookie名称和cookie值。同个网站可以创建多个cookie，而多个cookie可以存放在同一个cookie文件中。</li>
+</ul>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
+<li>cookie存在两种类型<ul>
+<li>你浏览的当前网站本身设置的cookie</li>
+<li>来自在网页上嵌入广告或图片等其他域来源的，第三方cookie(网页可通过使用这些cookie跟踪你的使用信息)</li>
+</ul>
+</li>
+<li>cookie的生命周期，大致也两种状态：<ul>
+<li>临时性质的cookie。当前使用的过程中网站会存储一些你的个人信息，当浏览器关闭后这些信息也会从计算机中删除</li>
+<li>设置失效时间的cookie。就算浏览器关闭了，这些信息依然会在计算机中，如登录名和密码，这样无须每次都到特定站点时都进行登录，这种cookie可以在计算机中保留几天，几个月，甚至几年</li>
+</ul>
+</li>
+<li>cookie的两种清除方式<ul>
+<li>通过浏览器工具清除cookie(有第三方工具，浏览器自身也有这种功能)</li>
+<li>通过设置cookie的有效期来清除cookie</li>
+<li>删除cookie有时候可能导致某些网页无法正常运行</li>
+</ul>
+</li>
+<li>浏览器可以通过设置来接收和拒绝访问cookie</li>
+<li>出于功能和性能的原因考虑，建议尽量减少cookie的使用数量，并且尽量使用小cookie</li>
+<li>关于cookie编码的细节</li>
+</ul>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><h4 id="简单的存取操作"><a href="#简单的存取操作" class="headerlink" title="简单的存取操作"></a>简单的存取操作</h4><p>使用JavaScript存取cookie时，必须要使用Document对象的cookie属性；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">'username=yulong'</span></div></pre></td></tr></table></figure></p>
+<p>以上代码’username’表示cookie名称，’yulong’表示这个名称对应的值。假设cookie名称并不存在，那么就是创建一个新的cookie，如果存在就是修改了这个cookie名称对应的值。如果要多次创建cookie，重复使用这个方法即可。</p>
+<h4 id="cookie的读取操作"><a href="#cookie的读取操作" class="headerlink" title="cookie的读取操作"></a>cookie的读取操作</h4><p>要精确的对cookie进行读取其实很简单，就是对字符串进行操作。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCookie</span>(<span class="params">c_name</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(<span class="built_in">document</span>.cookie.length &gt; <span class="number">0</span>)&#123;</div><div class="line">    c_start = <span class="built_in">document</span>.cookie.indexOf(c_name + =);</div><div class="line">    <span class="keyword">if</span>(c_start !== <span class="number">-1</span>)&#123;</div><div class="line">      c_start = c_start + c_name.length + <span class="number">1</span>;</div><div class="line">      c_end = <span class="built_in">document</span>.cookie.indexOf(<span class="string">";"</span>,c_start);</div><div class="line">      <span class="keyword">if</span>(c_end == <span class="number">-1</span>)&#123;</div><div class="line">        c_end = <span class="built_in">document</span>.cookie.length;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> <span class="built_in">unescape</span>(<span class="built_in">document</span>.cookie.substring(c_start,c_end))</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当然想实现读取cookie的方法不少，比如数组，正则等。</p>
+<h3 id="设置cookie的有效期"><a href="#设置cookie的有效期" class="headerlink" title="设置cookie的有效期"></a>设置cookie的有效期</h3><p>文章中常常出现的cookie的生命周期也就是有效期和失效期，即cookie的存在时间。在默认的情况下，cookie会在浏览器关闭的时候自动清除，但是我们可以通过expires来设置cookie的有效期。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=yulong;expires=date"</span></div></pre></td></tr></table></figure>
+<p>上面代码中的date值为GMT(格林威治时间)格式的日期型字符串，生成方式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> _date = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">_date.setDate(_date.getDate() + <span class="number">30</span>);</div><div class="line">_date.toGMTString();</div></pre></td></tr></table></figure></p>
+<p>分析：</p>
+<ul>
+<li>通过new 生成一个Date的实例，得到当前时间；</li>
+<li>getDate()方法得到当前本地月份中某一天，接着加上30就是我希望这个cookie能再本地保存30天</li>
+<li>接着通过setDate()方法设置时间</li>
+<li>最后用toGMTString()方法把Date对象转换为字符串，并返回结果</li>
+</ul>
+<p>其实设置cookie有很多插件可以用，也可以自己封装一些现成的方法作为工具函数。</p>
+<h3 id="高级篇"><a href="#高级篇" class="headerlink" title="高级篇"></a>高级篇</h3><h4 id="路径概念"><a href="#路径概念" class="headerlink" title="路径概念"></a>路径概念</h4><p>cookie有域和路径的概念，现在介绍路径在cookie中作用。</p>
+<p>cookie一般都是由于用户访问页面而被创建的，可是并不是只有在创建cookie的页面才可以访问这个cookie。<br>默认情况下只有与创建cookie的页面在同一个目录或子目录的网页才可以访问，这个是因为安全方面的考虑，造成不适所有页面都可以随意访问其他页面创建的cookie。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http://www.cnblog.com/Darren_code/  这里种的cookie</div><div class="line">http://www.cnblog.com/Darren_code/archive/cookie.html 可以拿到上面的cookie</div><div class="line">http://www.cnblog.com/xxx/ 就拿不到cookie，http://www.cnblog.com也拿不到</div></pre></td></tr></table></figure></p>
+<p>那么如何让这个cookie能被其他目录或者父级目录访问，通过设置cookie的路径就可以实现，如:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=value;path=path"</span>;</div><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=value;expires=date;path=path"</span></div></pre></td></tr></table></figure></p>
+<p>path就是cookie的路径，最常用的就是让cookie在根目录下，这样不管是哪个子页面创建的cookie，所有的页面都可以访问了；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=yulong;path=/"</span></div></pre></td></tr></table></figure></p>
+<h4 id="域概念"><a href="#域概念" class="headerlink" title="域概念"></a>域概念</h4><p>路径能解决在同一个域下访问cookie的问题，咱们接着说cookie实现同域访问的问题<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=yulong;path=path;domain=domain"</span></div></pre></td></tr></table></figure></p>
+<p>如果我们有:a:www.qq.com 与 b:sports.qq.com 公共一个关联域名qq.com<br>想让b下的cookie被a访问，我们就需要用到cookie的domain属性，并且把path设置成更目录”/“<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"name=yulong;path=/;domain=qq.com"</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>一定是同域之间的访问，不能吧domain的值设置成非主域的域名。</p>
+</blockquote>
+<h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><p>通常cookie信息都是使用http连接传递数据，这种传递方式很容易被查看，所以cookie存储的信息容易被窃取。加入cookie中所传递的内容比较重要，那么就要求使用加密的数据传输。</p>
+<p>所以cookie的这个属性的名称是”secure”,默认值为空，如果一个cookie的属性为secure，那么它与服务器之间的就通过https或者其他安全协议传递数据<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = <span class="string">'username=yulong;secure'</span></div></pre></td></tr></table></figure></p>
+<p>把cookie设置为secure，只保证cookie与服务器之间的数据传输过程加密，而保存在本地的cookie文件并不加密。如想让本地cookie加密，要自己加密。</p>
+<blockquote>
+<p>就算设置了secure属性也不代表他人不能看到你机器本地保存的cookie信息，所以说到底，别把重要信息放cookie就对了。</p>
+</blockquote>
+<h3 id="编码细节"><a href="#编码细节" class="headerlink" title="编码细节"></a>编码细节</h3><p>在输入cookie信息时，不能包含空格，分号，逗号等特殊符号，而在一般情况下，cookie信息的存储都是采用未编码的方式。所以在设置cookie信息之前，要先使用escape（）函数将cookie信息进行编码，在获取得到cookie值的时候，再使用unescape()函数把值进行转换回来，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span>.cookie = name = <span class="string">"="</span> + <span class="built_in">escape</span>(value)</div><div class="line"></div><div class="line"><span class="keyword">return</span> <span class="built_in">unescape</span>(docment.cookie.substring(start,end))</div></pre></td></tr></table></figure></p>
+<p>这样就不用担心因为cookie值出现了特殊符号而导致cookie信息报错了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yulongge.github.io/2016/12/22/Cookie/" data-id="cj4p6jhlb001ncxs6zxp5wmfv" class="article-share-link">Partager</a>
+      
+        <a href="http://yulongge.github.io/2016/12/22/Cookie/#disqus_thread" class="article-comment-link">Commentaires</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cookie/">Cookie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JvaScript/">JvaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/23/RegExp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          RegExp
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/22/storage/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Storage</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Event/">Event</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JSON/">JSON</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/JSONP/">JSONP</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/">ES6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/Promise/">Promise</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/http/https/">https</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/">mvvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/">mvc</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/mvp/">mvp</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/Promise/">Promise</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/css/">css</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context/">Context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event/">Event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JvaScript/">JvaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RegExp/">RegExp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scope/">Scope</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storage/">Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event/">event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iTerm2/">iTerm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvvm/">mvvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruanyifeng/">ruanyifeng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/">this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JvaScript/" style="font-size: 10px;">JvaScript</a> <a href="/tags/Promise/" style="font-size: 12.5px;">Promise</a> <a href="/tags/RegExp/" style="font-size: 12.5px;">RegExp</a> <a href="/tags/Scope/" style="font-size: 10px;">Scope</a> <a href="/tags/Storage/" style="font-size: 10px;">Storage</a> <a href="/tags/URI/" style="font-size: 12.5px;">URI</a> <a href="/tags/book/" style="font-size: 17.5px;">book</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/event/" style="font-size: 10px;">event</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/iTerm2/" style="font-size: 10px;">iTerm2</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mvvm/" style="font-size: 10px;">mvvm</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/ruanyifeng/" style="font-size: 17.5px;">ruanyifeng</a> <a href="/tags/this/" style="font-size: 12.5px;">this</a> <a href="/tags/vim/" style="font-size: 12.5px;">vim</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/04/studyInsight/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/13/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/this/">this</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/23/npm/">从头开始写一个npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/StringAPI/">String API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Ge Yulong<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'yulongge-github-io';
+  
+  var disqus_url = 'http://yulongge.github.io/2016/12/22/Cookie/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

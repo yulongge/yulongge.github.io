@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>DOM | Ge Yulong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当你意识到你不是在改html而是在操作DOM时，你就升级了！那么。。。What is DOM ?">
+<meta name="keywords" content="JavaScript,DOM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM">
+<meta property="og:url" content="http://yulongge.github.io/2016/12/27/DOM/index.html">
+<meta property="og:site_name" content="Ge Yulong">
+<meta property="og:description" content="当你意识到你不是在改html而是在操作DOM时，你就升级了！那么。。。What is DOM ?">
+<meta property="og:image" content="http://yulongge.github.io/2016/12/27/DOM/node.png">
+<meta property="og:updated_time" content="2017-06-13T15:51:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM">
+<meta name="twitter:description" content="当你意识到你不是在改html而是在操作DOM时，你就升级了！那么。。。What is DOM ?">
+<meta name="twitter:image" content="http://yulongge.github.io/2016/12/27/DOM/node.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Ge Yulong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ge Yulong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">web</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yulongge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DOM" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/27/DOM/" class="article-date">
+  <time datetime="2016-12-27T06:30:37.000Z" itemprop="datePublished">2016-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DOM
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当你意识到你不是在改html而是在操作DOM时，你就升级了！那么。。。What is DOM ?<br><a id="more"></a></p>
+<blockquote>
+<p>文档对象模型(DOM)是HTML和XML的编程接口。它提供了对文档的结构化的表述，并定义了一种方式可以从程序中对该结构进行访问，从而改变文档结构，样式和内容。DOM将文档解析为一个由节点和对象(包含属性和方法的对象)组成的结构集合，简而言之，它会将web页面和脚本或者程序语言连接起来。</p>
+</blockquote>
+<p>说白了DOM就是浏览器为JavaScript提供的一系列接口(通过window.document提供的)，通过这些接口我们可以操作web页面，但DOM并不是编程语言，它是文档对象的模型。该模型是独立于编程语言的，比如我们再python中也可以操作DOM。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> xml.dom.minidom <span class="keyword">as</span> m</div><div class="line">doc = m.parse(<span class="string">"C:\\Projects\\Py\\chap1.xml"</span>);</div><div class="line">doc.nodeName <span class="comment"># DOM property of document object;</span></div><div class="line">p_list = doc.getElementsByTagName(<span class="string">"para"</span>);</div></pre></td></tr></table></figure></p>
+<p>所以web前端常讲的DOM API(web或XML页面) = DOM + JS(脚本语言)。</p>
+<h3 id="node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>DOM节点(Node) 通常对应于一个标签，一个文本，或者一个HTML属性.</p>
+<blockquote>
+<p>DOM1级定义了一个Node接口，该接口将由DOM中的所有节点类型类型实现。</p>
+</blockquote>
+<p>javascript中的所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法。<br>每个节点都有一个nodeType属性，用于表示节点的类型。节点的类型由在Node类型中定义的12个数值常量来表示，</p>
+<ol>
+<li>Element，元素</li>
+<li>Attribute，属性</li>
+<li>Text，文本</li>
+</ol>
+<p>可以通过 <strong>nodeName</strong> 和 <strong>nodeValue</strong> 来了解节点信息，这两个属性取决于节点的类型。在使用这个属性之前，最好先检测一些节点的类型，如果节点是一个元素，nodeName中保存的始终是元素的标签名，而nodeValue值始终为null。</p>
+<h4 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h4><p>每个节点都有一个childNodes属性，其中保存着一个NodeList对象，NodeList对象是一种类数组对象，用于保存一组有序的节点，可以通过位置来访问这些节点。</p>
+<img src="/2016/12/27/DOM/node.png" alt="Node" title="Node">
+<ul>
+<li>hasChildrenNodes(): 这个方法在节点包含一个或多个子节点的情况下返回true。</li>
+<li>ownerDocument: 该属性指向表示整个文档的文档节点。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//将nodelist对象转换为数组</span></div><div class="line"><span class="keyword">var</span> arrayOfNodes = <span class="built_in">Array</span>.prototype.slice.call(someNode.childNodes, <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>NodeList对象的特殊之处在于，它实际上是基于DOM结构动态执行查询的结果，因此DOM的变化能直接反映在NodeList对象之中，它是有生命的对象，而不是在我们第一次访问它在某一个瞬间拍下的快照。</p>
+</blockquote>
+<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4><ul>
+<li>appendChild(): 用于向childNodes列表的末尾添加一个节点，返回新增的节点.</li>
+<li>insertBefore()：接收两个参数，要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点，同时被方法返回。</li>
+<li>replaceChild(): 接收两个参数：要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档中移除。同时由要插入的节点占据其位置。</li>
+<li>removeChild(): 接收一个参数，即要移除节点，返回被移除的节点。</li>
+<li>cloneNode():用于创建调用这个方法的节点的一个完全相同的副本。接收一个布尔值值参数，true表示执行深复制，也就是复制节点以及整个子节点树，false表示执行浅复制，即复制节点本身。</li>
+<li>normalize()</li>
+</ul>
+<p>前四个四个方法都是操作某个节点的子节点，也就是，要使用这个几个方法必须取得父节点。另外并不是所有节点都有子节点，如果在不支持子节点的节点上，调用了这些方法，将会导致错误。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> myList = <span class="built_in">document</span>.body.childNodes[<span class="number">1</span>];</div><div class="line"><span class="keyword">var</span> deepList = myList.cloneNode(<span class="literal">true</span>);</div><div class="line"><span class="built_in">console</span>.log(deepList.childNodes.length);</div><div class="line"><span class="comment">//使用childNodes属性的建议</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>; i&lt;ele.childNodes.length; i++)&#123;</div><div class="line">  <span class="keyword">if</span>(childNodep[i].nodeType === <span class="number">1</span>)&#123;</div><div class="line">    <span class="comment">//执行某些操作</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Note:</p>
+<ul>
+<li>如果传入到appendChild()中的节点已经是文档的一部分，那结果就是将该节点从原来的位置转移到新位置。即使可以将DOM树看成是由一系列指针连接起来的，但任何DOM节点也不能同时出现在文档中的多个位置上。</li>
+<li>在使用replaceChild()插入一个节点时，该节点的关系指针都会从被它替换的节点复制过来。从技术上来讲，被替换的节点仍然还在文档中，但它在文档中已经没有了自己的位置。同样的，removeChild()移除的节点也同样为文档所有，只不过在文档中已经没有了自己的位置.</li>
+<li>deepList.childNodes.length中的差异主要是因为IE8以及更早版本与其他浏览器处理空白字符的方式不一样。IE9以及之前版本不会为空白符创建节点.</li>
+<li>cloneNode()方法不会复制添加到DOM节点中的Javascript属性，例如事件处理程序等。这个方法只复制特性，在明确指定的情况下也复制子节点，其他一切都不会复制。IE在此存在一个bug，即它会复制事件处理程序，所以建议，在复制之前最好先移除事件处理程序</li>
+</ul>
+<h3 id="document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><p>JavaScript通过Document类型表示文档，HTMLDocument继承Document类型。</p>
+<ol>
+<li>document对象是HTMLDocument对象的实例</li>
+<li>document对象是window对象的一个属性，可以将其作为全局对象进行访问。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">document</span> <span class="keyword">instanceof</span> HTMLDocument <span class="comment">//true</span></div><div class="line">HTMLDocment._proto__ === Document <span class="comment">//true</span></div></pre></td></tr></table></figure>
+<p>docment作为我们操作文档的一个公共接口存在。</p>
+<h4 id="docment信息"><a href="#docment信息" class="headerlink" title="docment信息"></a>docment信息</h4><ul>
+<li>document.URL 包含页面完整的URL</li>
+<li>document.domain 包含页面的域名</li>
+<li>document.referrer 保存着链接到当前页面的那个页面的URL</li>
+<li>document.readyState 有两个可能值(HTML新增)<ul>
+<li>loading:正在加载文档</li>
+<li>complete:已经加载完文档</li>
+</ul>
+</li>
+<li>document.compatMode 这个属性的作用是告诉开发人员浏览器采用哪些渲染模式(HTML5新增)<ul>
+<li>值等于’CSS1Compat’,表明浏览器采用标准模式进行渲染</li>
+<li>值等于’BackCompat’,表明浏览器在混杂模式下进行渲染</li>
+</ul>
+</li>
+</ul>
+<p>这个几个属性中只有domain是可以设置的，但由于安全方面的限制，也并非可以给domain设置任何值</p>
+<ol>
+<li>不能将这个属性设置为URL重不包含的域</li>
+<li>如果域名一开始是松散的，那么不能将它设置为紧绷的。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//假设页面来自p2p.wrox.com域</span></div><div class="line"><span class="built_in">document</span>.domain = <span class="string">'wrox.com'</span>; <span class="comment">//松散的，成功</span></div><div class="line"><span class="built_in">document</span>.domain = <span class="string">'nczonline.net4'</span>;<span class="comment">// 出错</span></div><div class="line"><span class="built_in">document</span>.domain = <span class="string">'p2p.wrox.com'</span> <span class="comment">//紧绷的，出错</span></div></pre></td></tr></table></figure>
+<h4 id="document子节点"><a href="#document子节点" class="headerlink" title="document子节点"></a>document子节点</h4><ul>
+<li>document.documentElement:获取html元素的引用</li>
+<li>document.body:获得body元素的引用</li>
+<li>document.head:获得head元素的引用(HTML5新增)</li>
+<li>document.title: 包含title元素的文本</li>
+<li>document.activeElement这个属性始终会引用DOM中当前获得了焦点的元素(HTML新增)</li>
+</ul>
+<h4 id="查找节点元素节点"><a href="#查找节点-元素节点" class="headerlink" title="查找节点(元素节点)"></a>查找节点(元素节点)</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yulongge.github.io/2016/12/27/DOM/" data-id="cj4p6jhlh001ycxs6zw2sxxp6" class="article-share-link">Partager</a>
+      
+        <a href="http://yulongge.github.io/2016/12/27/DOM/#disqus_thread" class="article-comment-link">Commentaires</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DOM/">DOM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/12/28/begin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          start over
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/12/26/RegExp-Method/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">RegExp Method</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Event/">Event</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JSON/">JSON</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/JSONP/">JSONP</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/">ES6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/Promise/">Promise</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/http/https/">https</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/">mvvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/">mvc</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/mvp/">mvp</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/Promise/">Promise</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/css/">css</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context/">Context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event/">Event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JvaScript/">JvaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RegExp/">RegExp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scope/">Scope</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storage/">Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event/">event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iTerm2/">iTerm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvvm/">mvvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruanyifeng/">ruanyifeng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/">this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JvaScript/" style="font-size: 10px;">JvaScript</a> <a href="/tags/Promise/" style="font-size: 12.5px;">Promise</a> <a href="/tags/RegExp/" style="font-size: 12.5px;">RegExp</a> <a href="/tags/Scope/" style="font-size: 10px;">Scope</a> <a href="/tags/Storage/" style="font-size: 10px;">Storage</a> <a href="/tags/URI/" style="font-size: 12.5px;">URI</a> <a href="/tags/book/" style="font-size: 17.5px;">book</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/event/" style="font-size: 10px;">event</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/iTerm2/" style="font-size: 10px;">iTerm2</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mvvm/" style="font-size: 10px;">mvvm</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/ruanyifeng/" style="font-size: 17.5px;">ruanyifeng</a> <a href="/tags/this/" style="font-size: 12.5px;">this</a> <a href="/tags/vim/" style="font-size: 12.5px;">vim</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/04/studyInsight/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/13/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/this/">this</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/23/npm/">从头开始写一个npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/StringAPI/">String API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Ge Yulong<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'yulongge-github-io';
+  
+  var disqus_url = 'http://yulongge.github.io/2016/12/27/DOM/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Object API | Ge Yulong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述JavaScript原生提供一个Object对象(注意起首的O是大写),所以其他对象都继承自这个对象，Object本身也是一个构造函数，可以直接通过它来生成新对象。">
+<meta name="keywords" content="JavaScript,ruanyifeng,book">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object API">
+<meta property="og:url" content="http://yulongge.github.io/2017/01/12/ObjectAPI/index.html">
+<meta property="og:site_name" content="Ge Yulong">
+<meta property="og:description" content="概述JavaScript原生提供一个Object对象(注意起首的O是大写),所以其他对象都继承自这个对象，Object本身也是一个构造函数，可以直接通过它来生成新对象。">
+<meta property="og:updated_time" content="2017-06-13T15:51:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Object API">
+<meta name="twitter:description" content="概述JavaScript原生提供一个Object对象(注意起首的O是大写),所以其他对象都继承自这个对象，Object本身也是一个构造函数，可以直接通过它来生成新对象。">
+  
+    <link rel="alternate" href="/atom.xml" title="Ge Yulong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Ge Yulong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">web</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yulongge.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ObjectAPI" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/12/ObjectAPI/" class="article-date">
+  <time datetime="2017-01-12T07:06:45.000Z" itemprop="datePublished">2017-01-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Object API
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>JavaScript原生提供一个Object对象(注意起首的O是大写),所以其他对象都继承自这个对象，Object本身也是一个构造函数，可以直接通过它来生成新对象。<br><a id="more"></a><br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div></pre></td></tr></table></figure></p>
+<p>Object作为构造函数使用时，可以接收一个参数。如果该参数是又给对象，则直接返回这个对象；如果是一个原始类型的值，则返回该值对应的包装对象。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> o2 = <span class="keyword">new</span> <span class="built_in">Object</span>(o1);</div><div class="line">o1 === o2 <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="built_in">Object</span>(<span class="number">123</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">//true</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>通过new Object()的写法生成新对象，与字面量的写法o = {}是等价的。</p>
+</blockquote>
+<p>与其他构造函数一样，如果要在Object对象上面部署一个方法，有两种做法。</p>
+<ol>
+<li><p>部署在Object对象本身<br>比如，在Object对象上面定义一个print方法，显示其他对象的内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.print = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(o);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line"><span class="built_in">Object</span>.print(o);</div></pre></td></tr></table></figure>
+</li>
+<li><p>部署在Object.prototype对象<br>所有构造函数都有一个prototype属性，指向一个原型对象。凡是定义在Object.prototype对象上面的属性和方法，将被所有实例对象共享。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.prototype.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>)；</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">o.print(); <span class="comment">//object</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>尽管上面两种方法功能相同，但是用法是不一样的。因此必须区分”构造函数的方法”和”实例对象的方法”</p>
+<h2 id="object"><a href="#Object" class="headerlink" title="Object()"></a>Object()</h2><p>Object本身当作工具方法使用时，可以将任意值转为对象。这个方法常用于保证某个值一定是对象。<br>如果参数是原始类型的值，Object方法返回对应的包装对象的实例。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>() <span class="comment">//返回一个空对象。</span></div><div class="line"><span class="built_in">Object</span>() <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>(<span class="literal">undefined</span>) <span class="comment">//返回一个空对象</span></div><div class="line"><span class="built_in">Object</span>(<span class="literal">undefined</span>) <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>(<span class="literal">null</span>) <span class="comment">// 返回一个空对象</span></div><div class="line"><span class="built_in">Object</span>(nulll) <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>(<span class="number">1</span>) <span class="comment">//等同于 new Number(1)</span></div><div class="line"><span class="built_in">Object</span>(<span class="number">1</span>) <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></div><div class="line"><span class="built_in">Object</span>(<span class="number">1</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span> <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>(<span class="string">'foo'</span>) <span class="comment">//等同于new String('foo')</span></div><div class="line"><span class="built_in">Object</span>(<span class="string">'foo'</span>) <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></div><div class="line"><span class="built_in">Object</span>(<span class="string">'foo'</span>) <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">Object</span>(<span class="literal">true</span>) <span class="comment">//new Boolean(true)</span></div><div class="line"><span class="built_in">Object</span>(<span class="literal">true</span>) <span class="keyword">instanceof</span> <span class="built_in">Object</span></div><div class="line"><span class="built_in">Object</span>(<span class="literal">true</span>) <span class="keyword">instanceof</span> <span class="built_in">Boolean</span> <span class="comment">//true</span></div></pre></td></tr></table></figure></p>
+<p>Object函数可以将各种值转为对应的构造函数生成的对象。<br>如果Object方法的参数是一个对象，它总是返回原对象.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="built_in">Object</span>(arr) <span class="comment">//返回原数组</span></div><div class="line"><span class="built_in">Object</span>(arr) === arr <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line"><span class="built_in">Object</span>(obj) <span class="comment">//返回原对象</span></div><div class="line"><span class="built_in">Object</span>(obj) === obj <span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"><span class="built_in">Object</span>(fn) <span class="comment">//返回原函数</span></div><div class="line"><span class="built_in">Object</span>(fn) === fn <span class="comment">//true</span></div></pre></td></tr></table></figure></p>
+<p>利用这一点，可以写一个判断变量是否为对象的函数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> value === <span class="built_in">Object</span>(value);</div><div class="line">&#125;</div><div class="line">isObject([]) <span class="comment">//true</span></div><div class="line">isObject(<span class="literal">true</span>) <span class="comment">//false</span></div></pre></td></tr></table></figure></p>
+<h2 id="object对象的静态方法"><a href="#Object对象的静态方法" class="headerlink" title="Object对象的静态方法"></a>Object对象的静态方法</h2><p>所谓”静态方法”，是指部署在Object对象自身的方法。</p>
+<h3 id="objectkeysobjectgetownpropertynames"><a href="#Object-keys-Object-getOwnPropertyNames" class="headerlink" title="Object.keys(),Object.getOwnPropertyNames()"></a>Object.keys(),Object.getOwnPropertyNames()</h3><p>这两个方法很相似，一般用来遍历对象的属性。他们的参数都是一个对象，都返回一个数组，该数组的成员都是对象自身的(而不是继承的)所有的属性名。他们区别在于Object.keys()方法只返回可枚举的属性，Object.getOwnPropertyNames方法还返回不可枚举的属性名。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;</div><div class="line"><span class="attr">p1</span>: <span class="number">123</span>,</div><div class="line"><span class="attr">p2</span>: <span class="number">456</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">Object</span>.keys(o) <span class="comment">//['p1', 'p2']</span></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyNames(o) <span class="comment">//['p1','p2']</span></div></pre></td></tr></table></figure></p>
+<p>对于一般的对象来说，这两个方法返回的结果都是一样的。只有涉及到不可枚举属性时，才会有不一样的结果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [<span class="string">'hello'</span>, <span class="string">'world'</span>];</div><div class="line"><span class="built_in">Object</span>.keys(a); <span class="comment">//['1', '1']</span></div><div class="line"><span class="built_in">Object</span>.getOwnPropertyNames(a) <span class="comment">//['0', '1', 'length']</span></div></pre></td></tr></table></figure></p>
+<p>数组的length属性是不可枚举的属性，所以只出现在Object.getOwnPropertyNames方法的返回结果中。<br>由于Javascript没有提供计算对象属性个数的方法，所以可以用这两个方法代替。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.keys(o).length</div><div class="line"><span class="built_in">Object</span>.getOwnPropertyNames(o).length</div></pre></td></tr></table></figure></p>
+<p>一般情况下，几乎总是使用Object.keys方法，遍历数组的属性。</p>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><ol>
+<li><p>对象属性模型的相关方法</p>
+<ul>
+<li>Object.getOwnPropertyDescriptor()</li>
+<li>Object.difinedProperties()</li>
+<li>Object.definedProperty()</li>
+<li>Object.getOwnPropertyNames():全部属性</li>
+</ul>
+</li>
+<li><p>控制对象状态的方法。</p>
+<ul>
+<li>Object.preventExtensions():防止对象扩展.</li>
+<li>Object.isExtensible():判断对象是否可扩展。</li>
+<li>Object.seal():禁止对象配置</li>
+<li>Object.isSeal(): 是否可配置</li>
+<li>Object.freeze(): 冻结一个对象。</li>
+<li>Object.isFreeze(): 判断一个对象是否被冻结。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>原型链相关方法<ul>
+<li>Object.create():生成一个新对象，并对该对象的原型。</li>
+<li>Object.getPrototypeOf(): 获取对象的Prototype对象。</li>
+</ul>
+</li>
+</ol>
+<h2 id="object对象的实例方法"><a href="#Object对象的实例方法" class="headerlink" title="Object对象的实例方法"></a>Object对象的实例方法</h2><p>除了Object对象本身的方法，还有不少方法是部署在Object.prototype对象上的，所有Object的实例对象都继承了这些方法。</p>
+<p>object实例对象的方法：</p>
+<ul>
+<li>valueOf: 返回当前对象对应的值。</li>
+<li>toString: 返回当前对象对应的字符串形式。</li>
+<li>toLocaleString: 返回当前对象对应的本地字符串形式。</li>
+<li>hasOwnProperty: 判断某个属性是否为当前对象自身的属性，还是继承自原型对象的属性。</li>
+<li>isPrototypeOf: 判断当前对象是否为另一个对象的原型。</li>
+<li>propertyIsEnumberable: 判断某个属性是否可枚举。</li>
+</ul>
+<h3 id="objectprototypevalueof"><a href="#Object-prototype-valueOf" class="headerlink" title="Object.prototype.valueOf()"></a>Object.prototype.valueOf()</h3><p>valueOf方法的作用是返回一个对象的’值’，默认情况下返回对象本身。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">o.valueOf() === o <span class="comment">//true</span></div></pre></td></tr></table></figure></p>
+<p>valueOf()方法的主要用途是，JavaScript自动类型转换时会默认调用这个方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o  = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line"><span class="number">1</span> + o <span class="comment">//"1[object Object]"</span></div></pre></td></tr></table></figure></p>
+<p>将对象o与数字相加，这是Javascript就会默认调用valueOf()方法，所以，如果自定义valueOf方法，就可以得到想要的结果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">o.valueOf = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">&#125;</div><div class="line"><span class="number">1</span> + o <span class="comment">//3</span></div></pre></td></tr></table></figure></p>
+<p>相当于用o.valueOf覆盖Object.prototype.valueOf.</p>
+<h3 id="objectprototypetostring"><a href="#Object-prototype-toString" class="headerlink" title="Object.prototype.toString()"></a>Object.prototype.toString()</h3><p>toString方法的作用是返回一个对象的字符串形式，默认情况下返回类型字符串。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">o1.toString() <span class="comment">//"[object Object]"</span></div><div class="line"><span class="keyword">var</span> o2 = &#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</div><div class="line">o2.toString(); <span class="comment">//"[object Object]"</span></div></pre></td></tr></table></figure></p>
+<p>对于一个对象调用toString方法，会返回字符串[object Object],该字符串说明对象的类型。<br>字符串[object Object] 本身没有太大作用，但是通过自定义的toString方法，可以让对象在自动类型转换时，得到想要的字符串形式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">o.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="string">'hello'</span>;</div><div class="line">&#125;</div><div class="line">o + <span class="string">''</span> + <span class="string">'world'</span> <span class="comment">//hello world</span></div></pre></td></tr></table></figure></p>
+<p>当对象用于字符串加法时，会调用toString方法。由于自定义了toString方法，所以返回字符串hello world。<br>数组，字符串，函数，Date对象分别部署了自己版本的toString方法，覆盖了Object.prototype.toString方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].toString() <span class="comment">//"1, 2, 3"</span></div><div class="line"><span class="string">'123'</span>.toString(); <span class="comment">//'123'</span></div><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">123</span>;&#125;).toString()<span class="comment">// "function() &#123;return 123;&#125;"</span></div><div class="line">(<span class="keyword">new</span> <span class="built_in">Date</span>()).toString() <span class="comment">//"Thu Jan 12 2017 19:15:13 GMT+0800 (CST)"</span></div></pre></td></tr></table></figure></p>
+<h3 id="tostring的应用判断数据类型"><a href="#toString-的应用：判断数据类型" class="headerlink" title="toString()的应用：判断数据类型"></a>toString()的应用：判断数据类型</h3><p>Object.prototype.toString方法返回对象的类型字符串，因此可以用来判读一个值的类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o  = &#123;&#125;;</div><div class="line">o.toString() <span class="comment">//"[object Object]"</span></div></pre></td></tr></table></figure></p>
+<p>返回的第二个Object表示该值的构造的函数。这是一个十分有用的判断数据类型的方法。<br>实例对象可能会自定义toString方法，覆盖掉Object.prototype.toString方法。通过函数的call方法，可以在任意值上调用Object.prototype.toString方法，帮助我们判读这个值的类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.prototype.toString.call(value)</div></pre></td></tr></table></figure></p>
+<p>不同的数据类型Object.prototype.toString方法返回值：</p>
+<ul>
+<li>数值：[object Number]</li>
+<li>字符串：[object String]</li>
+<li>布尔值：[object Boolean]</li>
+<li>undefined: [object Undefined]</li>
+<li>null: [object Null]</li>
+<li>数组：[object Array]</li>
+<li>Error对象: [object Error]</li>
+<li>Date对象: [object Date]</li>
+<li>RegExp对象: [object RegExp]</li>
+<li>其他对象: [object Object]</li>
+</ul>
+<p>也就是说，Object.prototype.toString可以得到一个实例的构造函.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">2</span>) <span class="comment">// "[object Number]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="string">''</span>) <span class="comment">// "[object String]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">true</span>) <span class="comment">// "[object Boolean]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">undefined</span>) <span class="comment">// "[object Undefined]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// "[object Null]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">Math</span>) <span class="comment">// "[object Math]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;) <span class="comment">// "[object Object]"</span></div><div class="line"><span class="built_in">Object</span>.prototype.toString.call([]) <span class="comment">// "[object Array]"</span></div></pre></td></tr></table></figure></p>
+<p>利用这个特性可以写出一个比typeof运算更准确的类型判读函<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> type = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> s = <span class="built_in">Object</span>.prototype.toString.call(o);</div><div class="line">  <span class="keyword">return</span> s.match(<span class="regexp">/\[object (.*?) \]/</span>)[<span class="number">1</span>].toLowerCase();</div><div class="line">&#125;</div><div class="line">type(&#123;&#125;); <span class="comment">//"object"</span></div><div class="line">type([]); <span class="comment">//"array"</span></div><div class="line">type(<span class="number">5</span>); <span class="comment">//"number"</span></div><div class="line">type(<span class="literal">null</span>); <span class="comment">//null</span></div><div class="line">type(); <span class="comment">//"undefined"</span></div><div class="line">type(<span class="regexp">/abcd/</span>); <span class="comment">//"regex"</span></div><div class="line">type(<span class="keyword">new</span> <span class="built_in">Date</span>()) <span class="comment">//"date"</span></div></pre></td></tr></table></figure></p>
+<p>在上面这个type函数的基础上，还可以加上专门判读某种类型数据的方法。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[<span class="string">'Null'</span>,</div><div class="line">  <span class="string">'Undefined'</span>,</div><div class="line">  <span class="string">'Object'</span>,</div><div class="line">  <span class="string">'Array'</span>,</div><div class="line">  <span class="string">'String'</span>,</div><div class="line">  <span class="string">'Number'</span>,</div><div class="line">  <span class="string">'Boolean'</span>,</div><div class="line">  <span class="string">'Function'</span>,</div><div class="line">  <span class="string">'RegExp'</span>,</div><div class="line">  <span class="string">'NaN'</span>,</div><div class="line">  <span class="string">'Infinite'</span></div><div class="line">].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">t</span>) </span>&#123;</div><div class="line">    type[<span class="string">'is'</span> + t] = <span class="function"><span class="keyword">function</span>(<span class="params">o</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> type(o) === t.toLowerCase();</div><div class="line">    &#125;</div><div class="line">    &#125;)</div><div class="line">type.isObject(&#123;&#125;); <span class="comment">//true</span></div><div class="line">type.isNumber(<span class="literal">NaN</span>); <span class="comment">//true</span></div><div class="line">type.isRegExp(<span class="regexp">/abc/</span>); <span class="comment">//true</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yulongge.github.io/2017/01/12/ObjectAPI/" data-id="cj4p6jhm60030cxs63xel49u2" class="article-share-link">Partager</a>
+      
+        <a href="http://yulongge.github.io/2017/01/12/ObjectAPI/#disqus_thread" class="article-comment-link">Commentaires</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/book/">book</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ruanyifeng/">ruanyifeng</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/13/ArrayAPI/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          Array API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/11/Date/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">Date</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Event/">Event</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Git/">Git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JSON/">JSON</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/web/JSONP/">JSONP</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/">ES6</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/ES6/Promise/">Promise</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/book/">book</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/http/">http</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/http/https/">https</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/iTerm2/">iTerm2</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/">mvvm</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/">mvc</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/mvvm/mvc/mvp/">mvp</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/vim/">vim</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/">JavaScript</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/Promise/">Promise</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/JavaScript/css/">css</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context/">Context</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DOM/">DOM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event/">Event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSON/">JSON</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSONP/">JSONP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JvaScript/">JvaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Promise/">Promise</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RegExp/">RegExp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scope/">Scope</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Storage/">Storage</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/book/">book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/event/">event</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http/">http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iTerm2/">iTerm2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvc/">mvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvvm/">mvvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruanyifeng/">ruanyifeng</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/this/">this</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/DOM/" style="font-size: 10px;">DOM</a> <a href="/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/tags/Event/" style="font-size: 10px;">Event</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/JSON/" style="font-size: 10px;">JSON</a> <a href="/tags/JSONP/" style="font-size: 10px;">JSONP</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/JvaScript/" style="font-size: 10px;">JvaScript</a> <a href="/tags/Promise/" style="font-size: 12.5px;">Promise</a> <a href="/tags/RegExp/" style="font-size: 12.5px;">RegExp</a> <a href="/tags/Scope/" style="font-size: 10px;">Scope</a> <a href="/tags/Storage/" style="font-size: 10px;">Storage</a> <a href="/tags/URI/" style="font-size: 12.5px;">URI</a> <a href="/tags/book/" style="font-size: 17.5px;">book</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/event/" style="font-size: 10px;">event</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/https/" style="font-size: 10px;">https</a> <a href="/tags/iTerm2/" style="font-size: 10px;">iTerm2</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvc/" style="font-size: 10px;">mvc</a> <a href="/tags/mvp/" style="font-size: 10px;">mvp</a> <a href="/tags/mvvm/" style="font-size: 10px;">mvvm</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/ruanyifeng/" style="font-size: 17.5px;">ruanyifeng</a> <a href="/tags/this/" style="font-size: 12.5px;">this</a> <a href="/tags/vim/" style="font-size: 12.5px;">vim</a> <a href="/tags/web/" style="font-size: 15px;">web</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/07/04/studyInsight/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/13/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/24/this/">this</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/23/npm/">从头开始写一个npm包</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/17/StringAPI/">String API</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Ge Yulong<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'yulongge-github-io';
+  
+  var disqus_url = 'http://yulongge.github.io/2017/01/12/ObjectAPI/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
