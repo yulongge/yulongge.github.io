@@ -3,21 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Webpack | Ge Yulong</title>
+  <title>Tag: study | Ge Yulong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="what is webpackweb开发中常用到的静态资源主要有js,css,img,jade等文件，webpack中将静态资源称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化功能。 why webpack ?在项目开发过程中，经常会遇到三种情况：  项目中资源多样性和依赖性 js模块规范复杂化 开发与线上文件不一致  w">
-<meta name="keywords" content="JavaScript,web,webpack">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Webpack">
-<meta property="og:url" content="http://yulongge.github.io/2016/12/06/Webpack/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Ge Yulong">
+<meta property="og:url" content="http://yulongge.github.io/tags/study/index.html">
 <meta property="og:site_name" content="Ge Yulong">
-<meta property="og:description" content="what is webpackweb开发中常用到的静态资源主要有js,css,img,jade等文件，webpack中将静态资源称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化功能。 why webpack ?在项目开发过程中，经常会遇到三种情况：  项目中资源多样性和依赖性 js模块规范复杂化 开发与线上文件不一致  w">
-<meta property="og:image" content="http://yulongge.github.io/2016/12/06/Webpack/webpack.png">
-<meta property="og:updated_time" content="2017-06-14T16:16:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack">
-<meta name="twitter:description" content="what is webpackweb开发中常用到的静态资源主要有js,css,img,jade等文件，webpack中将静态资源称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化功能。 why webpack ?在项目开发过程中，经常会遇到三种情况：  项目中资源多样性和依赖性 js模块规范复杂化 开发与线上文件不一致  w">
-<meta name="twitter:image" content="http://yulongge.github.io/2016/12/06/Webpack/webpack.png">
+<meta name="twitter:title" content="Ge Yulong">
   
     <link rel="alternate" href="/atom.xml" title="Ge Yulong" type="application/atom+xml">
   
@@ -70,111 +63,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Webpack" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/06/Webpack/" class="article-date">
-  <time datetime="2016-12-06T08:04:45.000Z" itemprop="datePublished">2016-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/webpack/">webpack</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Webpack
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2017/07/04/studyInsight/" class="archive-article-date">
+  <time datetime="2017-07-03T16:00:00.000Z" itemprop="datePublished">Jul 4</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/07/04/studyInsight/">学习心得</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="what-is-webpack"><a href="#what-is-webpack" class="headerlink" title="what is webpack"></a>what is webpack</h2><p>web开发中常用到的静态资源主要有js,css,img,jade等文件，webpack中将静态资源称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化功能。<br><img src="/2016/12/06/Webpack/webpack.png" alt="webpack" title="webpack"></p>
-<h2 id="why-webpack"><a href="#why-webpack" class="headerlink" title="why webpack ?"></a>why webpack ?</h2><p>在项目开发过程中，经常会遇到三种情况：</p>
-<ul>
-<li>项目中资源多样性和依赖性</li>
-<li>js模块规范复杂化</li>
-<li>开发与线上文件不一致</li>
-</ul>
-<p>webpack可以很好地解决上面问题，它具有grunt，gulp对于静态资源自动化构建的能力，是一个出色的前端自动化构建工具，资源管理工具。</p>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>webpack.config.js默认</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack 的开发配置文件</span></div><div class="line">   <span class="comment">// 编写配置文件，要有最基本的文件入口和输出文件配置信息等</span></div><div class="line">   <span class="comment">// 里面还可以加loader和各种插件配置使用</span></div><div class="line">   <span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</div><div class="line">   <span class="built_in">module</span>.exports = &#123;</div><div class="line">       <span class="comment">// 单页面 SPA 的入口文件</span></div><div class="line">       entry:path.resolve(__dirname,<span class="string">'src/js/app.js'</span>),</div><div class="line">       <span class="comment">// 构建之后的文件输出位置配置</span></div><div class="line">       output: &#123;</div><div class="line">           <span class="attr">path</span>: path.resolve(__dirname, <span class="string">'dist'</span>),</div><div class="line">           <span class="attr">filename</span>: <span class="string">'bundle.js'</span></div><div class="line">       &#125;</div><div class="line">   &#125;;</div></pre></td></tr></table></figure>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">webpack --config webpack.config.js</div></pre></td></tr></table></figure>
-<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>一般把运行命令配置到npm的script中，package.json中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="string">"script"</span>: &#123;</div><div class="line">	<span class="string">"develop"</span>: <span class="string">"webpack --config webpack.develop.config.js"</span>,</div><div class="line">	<span class="string">"publish"</span>: <span class="string">"webpack --config webpack.publish.config.js"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//执行 npm develop/publish</span></div></pre></td></tr></table></figure></p>
-<p>如果一直执行npm run develop确实是一件非常无聊的事情，我们可以把它安静的运行，让我们设置：<br>webpack-dev-server<br>基于nodejs express框架开发的服务器<br>一个静态资源服务器，会监听每一个文件的变化，运行实时打包，并且可以推送通知当前的页面发生变化，从而实现页面的自动刷新。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i webpack-dev-server --save-dev</div></pre></td></tr></table></figure>
-<p>调整script命令：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="string">"scripts"</span>: &#123;</div><div class="line">	<span class="string">"develop"</span>: <span class="string">"webpack-dev-server --config webpack.develop.config.js --devtool eval --progress colors --hot --content-base src"</span>,</div><div class="line">	<span class="string">"publish"</span>: <span class="string">"webapck --config webpack.publish.config.js"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>webpack-dev-server 在localhost上建立一个8080端口的web服务器</li>
-<li>devtool eval</li>
-<li>progress 显示合并代码进度</li>
-<li>colors –hot ，命令中显示颜色</li>
-<li>content-base 指向设置的输出目录//这点一定是我们的发布目录</li>
-</ul>
-<h2 id="常用的加载器loaders"><a href="#常用的加载器loaders" class="headerlink" title="常用的加载器loaders"></a>常用的加载器loaders</h2><ol>
-<li>编译jsx和es6到es5的loader</li>
-<li>加载css</li>
-<li>加载sass，less</li>
-<li>图片处理</li>
-</ol>
-<h2 id="plugins"><a href="#Plugins" class="headerlink" title="Plugins"></a>Plugins</h2><ul>
-<li>自动打开浏览器插件 <a href="https://www.npmjs.com/package/open-browser-webpack-plugin" target="_blank" rel="external">open-browser-webpack-plugin</a></li>
-<li>压缩插件 webpack.optimize.UglifyJsPlugin，webpack自带的</li>
-<li>提取css插件</li>
-<li>自动创建index.html页面插件 html-webpack-plugin</li>
-<li>优化第三方包</li>
-<li>提取js公共部分插件 commonsChunkPlugin</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yulongge.github.io/2016/12/06/Webpack/" data-id="cj4p6o4ma000aj4s6u4ri70ox" class="article-share-link">Share</a>
-      
-        <a href="http://yulongge.github.io/2016/12/06/Webpack/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/12/08/Event/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Event
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/12/04/JSON/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JSON</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
 
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 </section>
         
           <aside id="sidebar">
@@ -273,13 +195,11 @@
 <script>
   var disqus_shortname = 'yulongge-github-io';
   
-  var disqus_url = 'http://yulongge.github.io/2016/12/06/Webpack/';
-  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>
